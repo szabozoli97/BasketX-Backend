@@ -1,13 +1,8 @@
-FROM eclipse-temurin:17-jdk-jammy as builder
-WORKDIR /opt/app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-COPY ./src ./src
-RUN ./mvnw clean install
+FROM 3.9.4-amazoncorretto-17
 
-FROM eclipse-temurin:17-jre-jammy
-WORKDIR /opt/app
-EXPOSE 8080
-COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
-ENTRYPOINT ["java", "-jar", "/opt/app/*.jar" ]
+WORKDIR /bezkoder-app
+COPY . .
+RUN mvn clean install
+
+CMD mvn spring-boot:run
+
