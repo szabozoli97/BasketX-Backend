@@ -9,5 +9,5 @@ RUN ./mvnw clean install
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /opt/backend
 EXPOSE 8080
-COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
+COPY --from=builder /opt/backend/target/*.jar /opt/backend/*.jar
 ENTRYPOINT ["java", "-jar", "/opt/app/*.jar" ]
